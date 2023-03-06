@@ -10,9 +10,6 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
 
-
-// TODO: Write Code to gather information about the development team members, and render the HTML file.
-
 //Variable to store Manager, Engineer and Intern objects, which are then passed through the render()
 //function to generate an html file.
 const newEmployees = [];
@@ -105,7 +102,6 @@ function init() {
     .prompt(managerQuestions).then((data) => {
         const manager = new Manager(data.name, data.id, data.email, data.officeNumber); 
         newEmployees.push(manager);
-        console.log(newEmployees);
         addEmployees();
     })
 }
@@ -115,7 +111,6 @@ function init() {
 function addEmployees() {
     inquirer
     .prompt(moreEmployees).then((data) => {
-        console.log(data.moreEmployees)
         //Conditional employing user data to determine whether functions are run either to add a new Engineer or a new 
         //Intern. If no further team member need to be added, the render function is called using the newEmployees array
         //as an argument. From this an html file is created (team.html) using fs.writeFile and stored in the output folder.
@@ -124,13 +119,10 @@ function addEmployees() {
         } else if (data.moreEmployees === 'I wish to add an intern.') {
             newIntern();
         }   else {
-            console.log(newEmployees);
-            classTest();
             const fileContents = render(newEmployees);
-            console.log(fileContents);
             fs.writeFile(outputPath, fileContents, (err) =>
-        err ? console.log(err) : console.log('Success!')
-    );
+            err ? console.log(err) : console.log('Success!')
+            );
         }
     })
 }
@@ -143,11 +135,11 @@ function newEngineer() {
     .prompt(engineerQuestions).then((data) => {
         const engineer = new Engineer(data.name, data.id, data.email, data.gitHub); 
         newEmployees.push(engineer);
-        console.log(newEmployees);
         addEmployees();
     })
 
 }
+
 //A function to ask the user for information regarding an intern; to convert the response data into an object
 //and to push this object to the newEmployees array. Once the Intern object has been created the addEmployees() function
 //is called to determine whether other employees need to be added to the team.
@@ -156,17 +148,9 @@ function newIntern() {
     .prompt(internQuestions).then((data) => {
         const intern = new Intern(data.name, data.id, data.email, data.school); 
         newEmployees.push(intern);
-        console.log(newEmployees);
         addEmployees();
     })
 
-}
-
-const classTest = () => {
-    for (i = 0; i < newEmployees.length; i++) {
-        let testRun = newEmployees[i].getRole();
-        console.log(testRun);
-    }
 }
 
 //The init function is called to begin the process of asking the user about the different members of the development team.
