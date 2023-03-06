@@ -12,8 +12,12 @@ const render = require("./src/page-template.js");
 
 
 // TODO: Write Code to gather information about the development team members, and render the HTML file.
+
+//Variable to store Manager, Engineer and Intern objects, which are then passed through the render()
+//function to generate an html file.
 const newEmployees = [];
 
+//An array of question objects to gather information for generating a Manager object through inquirer
 const managerQuestions = [
     {
         type: 'input',
@@ -37,6 +41,7 @@ const managerQuestions = [
     },
 ];
 
+//An array of question objects to gather information for generating a Engineer object through inquirer
 const engineerQuestions = [
     {
         type: 'input',
@@ -60,6 +65,7 @@ const engineerQuestions = [
     },
 ]
 
+//An array of question objects to gather information for generating a Intern object through inquirer
 const internQuestions = [
     {
         type: 'input',
@@ -83,6 +89,7 @@ const internQuestions = [
     },
 ]
 
+//A question object for inquirer to determine whether more members are to be added to the team
 const moreEmployees = {   
     type: 'list',
     name: 'moreEmployees',
@@ -90,6 +97,9 @@ const moreEmployees = {
     choices: ['I wish to add an engineer.', 'I wish to add an intern.', 'I have finished adding team members.']
 }   
 
+//A function to ask the user for information regarding the team manager; to convert the response data into an object
+//and to push this object to the newEmployees array. Once the Manager object has been created the addEmployees() function
+//is called to determine whether other employees need to be added to the team.
 function init() {
     inquirer
     .prompt(managerQuestions).then((data) => {
@@ -100,10 +110,15 @@ function init() {
     })
 }
 
+//A function using inquirer and the questions from the moreEmployees array to determine whether more employees need to be 
+//added to the team. 
 function addEmployees() {
     inquirer
     .prompt(moreEmployees).then((data) => {
         console.log(data.moreEmployees)
+        //Conditional employing user data to determine whether functions are run either to add a new Engineer or a new 
+        //Intern. If no further team member need to be added, the render function is called using the newEmployees array
+        //as an argument. From this an html file is created (team.html) using fs.writeFile and stored in the output folder.
         if (data.moreEmployees === 'I wish to add an engineer.') {
             newEngineer();
         } else if (data.moreEmployees === 'I wish to add an intern.') {
@@ -120,6 +135,9 @@ function addEmployees() {
     })
 }
 
+//A function to ask the user for information regarding an engineer; to convert the response data into an object
+//and to push this object to the newEmployees array. Once the Engineer object has been created the addEmployees() function
+//is called to determine whether other employees need to be added to the team.
 function newEngineer() {
     inquirer
     .prompt(engineerQuestions).then((data) => {
@@ -130,7 +148,9 @@ function newEngineer() {
     })
 
 }
-
+//A function to ask the user for information regarding an intern; to convert the response data into an object
+//and to push this object to the newEmployees array. Once the Intern object has been created the addEmployees() function
+//is called to determine whether other employees need to be added to the team.
 function newIntern() {
     inquirer
     .prompt(internQuestions).then((data) => {
@@ -149,5 +169,6 @@ const classTest = () => {
     }
 }
 
+//The init function is called to begin the process of asking the user about the different members of the development team.
 init();
 
