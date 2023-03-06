@@ -38,7 +38,7 @@ const managerQuestions = [
     },
 ];
 
-//An array of question objects to gather information for generating a Engineer object through inquirer
+//An array of question objects to gather information for generating an Engineer object through inquirer
 const engineerQuestions = [
     {
         type: 'input',
@@ -62,7 +62,7 @@ const engineerQuestions = [
     },
 ]
 
-//An array of question objects to gather information for generating a Intern object through inquirer
+//An array of question objects to gather information for generating an Intern object through inquirer
 const internQuestions = [
     {
         type: 'input',
@@ -94,7 +94,7 @@ const moreEmployees = {
     choices: ['I wish to add an engineer.', 'I wish to add an intern.', 'I have finished adding team members.']
 }   
 
-//A function to ask the user for information regarding the team manager; to convert the response data into an object
+//A function to ask the user for information regarding the team manager, to convert the response data into an object
 //and to push this object to the newEmployees array. Once the Manager object has been created the addEmployees() function
 //is called to determine whether other employees need to be added to the team.
 function init() {
@@ -111,8 +111,8 @@ function init() {
 function addEmployees() {
     inquirer
     .prompt(moreEmployees).then((data) => {
-        //Conditional employing user data to determine whether functions are run either to add a new Engineer or a new 
-        //Intern. If no further team member need to be added, the render function is called using the newEmployees array
+        //Conditional employing user data to determine whether functions should be called: either to add a new Engineer or a new 
+        //Intern. If no further team members need to be added, the render() function is called using the newEmployees array
         //as an argument. From this an html file is created (team.html) using fs.writeFile and stored in the output folder.
         if (data.moreEmployees === 'I wish to add an engineer.') {
             newEngineer();
@@ -127,7 +127,7 @@ function addEmployees() {
     })
 }
 
-//A function to ask the user for information regarding an engineer; to convert the response data into an object
+//A function to ask the user for information regarding an engineer, to convert the response data into an object
 //and to push this object to the newEmployees array. Once the Engineer object has been created the addEmployees() function
 //is called to determine whether other employees need to be added to the team.
 function newEngineer() {
@@ -140,7 +140,7 @@ function newEngineer() {
 
 }
 
-//A function to ask the user for information regarding an intern; to convert the response data into an object
+//A function to ask the user for information regarding an intern, to convert the response data into an object
 //and to push this object to the newEmployees array. Once the Intern object has been created the addEmployees() function
 //is called to determine whether other employees need to be added to the team.
 function newIntern() {
